@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from schemas import PostCreate, PostResponse
+from schemas import PostCreate, PostResponse , UserCreate, UserResponse
 from typing import Annotated
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -39,6 +39,50 @@ def post_page(request:Request, post_id:int):
             title = post["title"][:50]
             return templates.TemplateResponse(request,"post.html",{"post":post , "title": title })
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
+
+
+@app.post(
+        "/api./user",
+        response_model=UserResponse,
+        status_code=status.HTTP_201_CREATED,
+)
+def create_user(user: UserCreate, db:Annotated[Session, Depends(get_db)]):
+    result = db.execute(
+        select(models.User).where(models.User.username == user.username)
+    )
+    existing_user = result.scalars().first()
+    if existing_user: 
+        raise HTTPException(
+            status_code= status.HTTP_400_BAD_REQUEST,
+            detail="Username alredy exists",
+        )
+    result = db.execute(
+        select(models.User).where(models.User.email == user.email)
+    )
+    existing_email = result.scalars().first()
+    if existing_email: 
+        raise HTTPException(
+            status_code= status.HTTP_400_BAD_REQUEST,
+            detail="email alredy exists",
+        )
+    new_user = models.User(
+        username = user.username,
+        email = user.email,
+    )
+    db.add(new_user)
+    db.commit
+    db.reset(new_user)
+    return new_user
+   
+@app.get("/api/posts/{user_id}", response_model=UserResponse)
+def get_user(user_id:int, db:Annotated[Session, Depends(get_db)]):
+    result = db.execute(
+        select(models.User).where(models.User.id == user_id)
+    )
+    user = result.scalars().first()
+    if user: 
+        return user
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
 @app.get("/api/posts", response_model=list[PostResponse])
 def get_posts():

@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./blog.db"
 

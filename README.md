@@ -93,7 +93,7 @@ A blog application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jin
 Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/Yuvraj073/Learning-api.git>
 ```
 
 Create a virtual environment

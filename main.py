@@ -130,8 +130,7 @@ async def general_http_exception_handler(
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(
     request: Request,
-    exception: RequestValidationError,
-):
+    exception: RequestValidationError,):
     if request.url.path.startswith("/api"):
         return await request_validation_exception_handler(request, exception)
 

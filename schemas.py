@@ -7,6 +7,7 @@ class UserBase(BaseModel):
     email: EmailStr = Field(max_length=120)
 
 class UserCreate(UserBase):
+    password: str = Field(min_length=8)
     pass
 class UserResponse(UserBase):
     model_config = ConfigDict(from_attributes=True)

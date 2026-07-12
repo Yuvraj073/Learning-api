@@ -50,3 +50,4 @@ def verify_access_token(token: str) -> str | None:
         return None
     else:
         return payload.get("sub")
+    

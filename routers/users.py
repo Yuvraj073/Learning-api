@@ -7,7 +7,8 @@ from sqlalchemy.orm import selectinload
 
 import models
 from database import get_db
-from schemas import PostResponse, UserUpdate, UserPrivate, UserPublic, UserCreate
+from schemas import PostResponse, UserUpdate, UserPrivate, UserPublic, UserCreate, Token
+from config import settings
 
 from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm

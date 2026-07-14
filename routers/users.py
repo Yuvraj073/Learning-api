@@ -82,38 +82,6 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type="bearer")
 
 
-@router.get("/get", response_model=UserPrivate)
-async def get_current_user(
-    token:Annotated[str,Depends(oauth2_scheme)],
-    db: Annotated[AsyncSession, Depends(get_db)]
-):
-    user_id = verify_access_token(token)
-    if user_id is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invaild or expired token",
-            headers={"WW-Authenticate":"Bearer"}
-        )
-    try:
-        user_id_int = int(user_id)
-    except(TypeError, ValueError):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invaild or expired token",
-            headers={"WW-Authenticate": "bearer"}
-        )
-    result = await db.execute(
-        select(models.User).where(models.User.id == user_id_int)
-    )
-    user = result.scalars().first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invaild or expired token",
-            headers={"WW-Authenticate":"Bearer"}
-        )
-    return user
-
 @router.get("/me", response_class=UserPrivate)
 async def get_current_user(current_user: CurrentUser):
     return current_user

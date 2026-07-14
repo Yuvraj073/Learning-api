@@ -8,7 +8,8 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str = Field(min_length=8)
-    pass
+    
+
 class UserPublic(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int
@@ -34,7 +35,8 @@ class PostBase(BaseModel):
     
     
 class PostCreate(PostBase):
-    user_id: int
+    pass
+
     
 class PostUpdate(BaseModel):
     title: str | None = Field(default=None, min_length=1, max_length=100)

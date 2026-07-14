@@ -13,6 +13,7 @@ from config import settings
 from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm
 from auth import (
+    CurrentUser,
     create_access_token,
     hash_password,
     oauth2_scheme, 
@@ -113,7 +114,9 @@ async def get_current_user(
         )
     return user
 
-
+@router.get("/me", response_class=UserPrivate)
+async def get_current_user(current_user: CurrentUser):
+    return current_user
 
 @router.get("/{user_id}", response_model=UserPublic)
 async def get_user(user_id: int, db: Annotated[AsyncSession, Depends(get_db)]):

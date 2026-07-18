@@ -43,6 +43,9 @@ A blog application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jin
   - Custom HTML Error Pages
   - JSON Error Responses for API
 
+- Authentication
+- 
+
 ## Tech Stack
 
 - Python
@@ -136,7 +139,7 @@ http://127.0.0.1:8000/docs
 
 ## Upcoming Features
 
-- Authentication & Authorization
+- Authorization
 - Password Hashing
 - User Login
 - Image Upload

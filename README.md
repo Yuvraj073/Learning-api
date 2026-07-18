@@ -44,7 +44,7 @@ A blog application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jin
   - JSON Error Responses for API
 
 - Authentication
-- 
+  - Basic Authentication
 
 ## Tech Stack
 

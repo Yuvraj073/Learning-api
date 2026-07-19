@@ -16,8 +16,6 @@ from auth import (
     CurrentUser,
     create_access_token,
     hash_password,
-    oauth2_scheme, 
-    verify_access_token,
     verify_password
 )
 
@@ -62,7 +60,7 @@ async def create_user(user: UserCreate, db: Annotated[AsyncSession, Depends(get_
 @router.post("/token", response_model=Token)
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-    db: Annotated[AsyncSession, Depends()]):
+    db: Annotated[AsyncSession, Depends(get_db)]):
     # OAuth2PasswordRequestForm uses "username" feild, but we use email as username in this project 
     result= await db.execute(select(models.User).where(func.lower(models.User.email)== form_data.username.lower()))
 
@@ -82,7 +80,7 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type="bearer")
 
 
-@router.get("/me", response_class=UserPrivate)
+@router.get("/me", response_model=UserPrivate)
 async def get_current_user(current_user: CurrentUser):
     return current_user
 
@@ -117,9 +115,16 @@ async def get_user_posts(user_id: int, db: Annotated[AsyncSession, Depends(get_d
 @router.patch("/{user_id}", response_model=UserPrivate)
 async def update_user(
     user_id: int,
+    current_user: CurrentUser,
     user_update: UserUpdate,
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
+    if user_id != current_user.id:
+        raise HTTPException(
+            status_code= status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to update this user"
+        )
+    
     result = await db.execute(select(models.User).where(models.User.id == user_id))
     user = result.scalars().first()
     if not user:
@@ -161,7 +166,12 @@ async def update_user(
 
 
 @router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_user(user_id: int, db: Annotated[AsyncSession, Depends(get_db)]):
+async def delete_user(user_id: int, current_user: CurrentUser, db: Annotated[AsyncSession, Depends(get_db)]):
+    if user_id != current_user.id:
+        raise HTTPException(
+            status_code= status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to delete this user"
+        )
     result = await db.execute(select(models.User).where(models.User.id == user_id))
     user = result.scalars().first()
     if not user:

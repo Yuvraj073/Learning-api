@@ -68,7 +68,7 @@ async def get_current_user(
         raise HTTPException(
             status_code= status.HTTP_401_UNAUTHORIZED,
             detail="Invaild or expired token",
-            headers={"WW-Authenticate": "Bearer"}
+            headers={"WWW-Authenticate": "Bearer"}
         )
     try: 
         user_id_int= int(user_id)
@@ -76,7 +76,7 @@ async def get_current_user(
         raise HTTPException(
             status_code= status.HTTP_401_UNAUTHORIZED,
             detail="Invaild or expired token",
-            headers={"WW-Authenticate": "Bearer"}
+            headers={"WWW-Authenticate": "Bearer"}
         )
     result = await db.execute(
         select(models.User).where(models.User.id == user_id_int)
@@ -86,7 +86,7 @@ async def get_current_user(
         raise HTTPException(
             status_code= status.HTTP_401_UNAUTHORIZED,
             detail="User not found",
-            headers={"WW-Authenticate":"Bearer"}
+            headers={"WWW-Authenticate":"Bearer"}
         )
     return user
 

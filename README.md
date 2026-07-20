@@ -43,8 +43,15 @@ A blog application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jin
   - Custom HTML Error Pages
   - JSON Error Responses for API
 
-- Authentication
-  - Basic Authentication
+- Authentication and Authorization
+  - Password Hashing
+  - JWT Authentication
+  - OAuth2 Authentication
+  - Access Token Management
+  - Protected API Endpoints
+  - User Authentication Dependencies
+
+  
 
 ## Tech Stack
 
@@ -139,9 +146,6 @@ http://127.0.0.1:8000/docs
 
 ## Upcoming Features
 
-- Authorization
-- Password Hashing
-- User Login
 - Image Upload
 - Pagination
 - Search Functionality

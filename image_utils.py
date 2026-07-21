@@ -5,7 +5,7 @@ from PIL import Image, ImageOps
 
 PROFILE_PICS_DIR = Path("media/profile_pics")
 
-def process_profile_images(content: bytes) -> str:
+def process_profile_image(content: bytes) -> str:
     with Image.open(BytesIO(content)) as original:
         img = ImageOps.exif_transpose(original)
 
@@ -20,3 +20,11 @@ def process_profile_images(content: bytes) -> str:
         PROFILE_PICS_DIR.mkdir(parents=True, exist_ok=True)
         img.save(filepath, "JPEG", quailty=85, optimize =True)
     return filename
+
+def delete_profile_image(filename: str | None) -> None:
+    if filename is None:
+        return
+    filepath = PROFILE_PICS_DIR / filename
+    if filepath.exists():
+        filepath.unlink()
+        

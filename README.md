@@ -146,7 +146,6 @@ http://127.0.0.1:8000/docs
 
 ## Upcoming Features
 
-- Image Upload
 - Pagination
 - Search Functionality
 - Comments System

@@ -99,7 +99,7 @@ async def get_user(user_id: int, db: Annotated[AsyncSession, Depends(get_db)]):
 @router.get("/{user_id}/posts", response_model=PaginatedPostResponse)
 async def get_user_posts(user_id: int, db: Annotated[AsyncSession, Depends(get_db)],
     skip: Annotated[int, Query(ge=0)] = 0,
-    limit: Annotated[int, Query(ge=1, le=100)] = settings.posts_per_page):
+    limit: Annotated[int, Query(ge=1, le=100)] = settings.post_per_page):
 
     result = await db.execute(select(models.User).where(models.User.id == user_id))
     user = result.scalars().first()

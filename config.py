@@ -16,4 +16,14 @@ class Settings(BaseSettings):
 
     post_per_page: int = 10
 
+    reset_token_expire_limit: int = 60
+
+    mail_server: str = "localhost"
+    mail_port: int = 587
+    mail_username: str = ""
+    mail_password: SecretStr = SecretStr("")
+    mail_from: str = "Learning-api.com"
+    mail_use_tls: bool = True 
+
+    frontend_url: str = "http://localhost:8000"    
 settings = Settings()  # Loaded from .env file

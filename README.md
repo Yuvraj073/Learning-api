@@ -51,6 +51,13 @@ A blog application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jin
   - Protected API Endpoints
   - User Authentication Dependencies
 
+- Profile Picture Management
+ - Upload Profile Picture
+ - Update Profile Picture
+ - Delete Profile Picture
+ - Automatic Image Resizing (300×300)
+ - Image Compression & Optimization
+ - Unique Filename Generation
   
 
 ## Tech Stack

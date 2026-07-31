@@ -59,6 +59,7 @@ A blog application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jin
   - Image Compression & Optimization
   - Unique Filename Generation
   
+- Rest Password 
 
 ## Tech Stack
 

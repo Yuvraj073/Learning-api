@@ -154,6 +154,7 @@ http://127.0.0.1:8000/docs
 
 ## Upcoming Features
 
+- Reset Password
 - Search Functionality
 - Comments System
 - User Profiles

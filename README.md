@@ -59,7 +59,8 @@ A blog application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jin
   - Image Compression & Optimization
   - Unique Filename Generation
   
-- Rest Password 
+- Reset Password 
+  - Change password
 
 ## Tech Stack
 
@@ -154,7 +155,6 @@ http://127.0.0.1:8000/docs
 
 ## Upcoming Features
 
-- Reset Password
 - Search Functionality
 - Comments System
 - User Profiles

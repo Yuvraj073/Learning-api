@@ -135,6 +135,23 @@ async def account_page(request: Request):
         {"title": "Account"}
     )
 
+@app.get("/forget-password", include_in_schema=False)
+async def forget_password(request: Request):
+    response = templates.TemplateResponse(
+        request,
+        "forget-password",
+        {"title":"Forget Password"}
+    )
+
+@app.get("/reset-password", include_in_schema=False)
+async def reset_password(request: Request):
+    response = templates.TemplateResponse(
+        request,
+        "reset_password.html"
+        {"tittle": "Reset Password"}
+    )
+    response.headers["Referrer-Policy"] = "no-referrer"
+    return response
 
 @app.exception_handler(StarletteHTTPException)
 async def general_http_exception_handler(

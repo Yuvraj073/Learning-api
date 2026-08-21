@@ -147,9 +147,10 @@ async def forget_password(request: Request):
 async def reset_password(request: Request):
     response = templates.TemplateResponse(
         request,
-        "reset_password.html"
+        "reset_password.html",
         {"tittle": "Reset Password"}
     )
+
     response.headers["Referrer-Policy"] = "no-referrer"
     return response
 

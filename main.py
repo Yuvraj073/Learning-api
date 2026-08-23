@@ -136,7 +136,7 @@ async def account_page(request: Request):
     )
 
 @app.get("/forget-password", include_in_schema=False)
-async def forget_password(request: Request):
+async def forgot_password_page(request: Request):
     response = templates.TemplateResponse(
         request,
         "forget-password",
@@ -144,7 +144,7 @@ async def forget_password(request: Request):
     )
 
 @app.get("/reset-password", include_in_schema=False)
-async def reset_password(request: Request):
+async def reset_password_page(request: Request):
     response = templates.TemplateResponse(
         request,
         "reset_password.html",

@@ -332,7 +332,7 @@ async def delete_user(user_id: int, current_user: CurrentUser, db: Annotated[Asy
         delete_profile_image(old_filename)
 
 
-@router.patch("/{user_id/picture}", response_model= UserPrivate)
+@router.patch("/{user_id}/picture", response_model= UserPrivate)
 async def upload_profile_picture(
     user_id: int,
     file: UploadFile,
@@ -370,7 +370,7 @@ async def upload_profile_picture(
 
     return current_user
 
-@router.delete("/{user_id}/pictures", response_model=UserPrivate)
+@router.delete("/{user_id}/picture", response_model=UserPrivate)
 async def delete_user_picture(
         user_id: int,
         current_user: CurrentUser,

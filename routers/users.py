@@ -94,7 +94,7 @@ async def get_current_user(current_user: CurrentUser):
     return current_user
 
 
-@router.post("/forget-password", status_code=status.HTTP_202_ACCEPTED)
+@router.post("/forgot-password", status_code=status.HTTP_202_ACCEPTED)
 async def forget_pasword(
     request_data: ForgotPasswordRequest,
     background_tasks: BackgroundTasks,
@@ -114,12 +114,12 @@ async def forget_pasword(
         )
         token = generate_reset_token()
         token_hash = hash_reset_token(token)
-        expire_at = datetime.now(UTC) + timedelta(minutes=settings.reset_token_exipre_minutes)
+        expire_at = datetime.now(UTC) + timedelta(minutes=settings.reset_token_expire_limit)
 
         reset_token = models.PasswordResetToken(
             user_id = user.id,
             token_hash = token_hash,
-            expire_at = expire_at
+            expires_at = expire_at
         )
 
         db.add(reset_token)

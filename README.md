@@ -59,9 +59,14 @@ A blog application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jin
   - Image Compression & Optimization
   - Unique Filename Generation
   
-- Reset Password 
-  - Change password
-
+- Password Management
+  - Change Password
+  - Forgot Password
+  - Password Reset via Email
+  - Secure Password Reset Tokens
+  - Token Expiration Handling
+  - Password Hashing
+  
 ## Tech Stack
 
 - Python

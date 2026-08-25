@@ -114,7 +114,7 @@ async def forget_pasword(
         )
         token = generate_reset_token()
         token_hash = hash_reset_token(token)
-        expire_at = datetime.now(UTC) + timedelta(minutes=settings.reset_token_expire_limit)
+        expire_at = datetime.now(UTC) + timedelta(minutes=settings.reset_token_expire_minutes)
 
         reset_token = models.PasswordResetToken(
             user_id = user.id,
@@ -184,9 +184,12 @@ async def reset_password(
         sql_delete(models.PasswordResetToken).where(
             models.PasswordResetToken.user_id == user.id)
     )
+
+    await db.commit()
     return{
         "message": "Password reset successfully. You can now login with your new password."
     }
+
 
 @router.patch("/me/password", status_code= status.HTTP_200_OK)
 async def change_password(

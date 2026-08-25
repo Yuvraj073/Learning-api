@@ -9,7 +9,7 @@ async def send_email(
         to_email: str,
         subject: str,
         plain_text: str,
-        html_content: str | None= None
+        html_content: str | None = None
 ) -> None:
     message = EmailMessage()
     message["From"] = settings.mail_from
@@ -25,8 +25,8 @@ async def send_email(
         message,
         hostname= settings.mail_server,
         port= settings.mail_port,
-        username= settings.mail_username,
-        password= settings.mail_password,
+        username= settings.mail_username if settings.mail_username else None,
+        password= settings.mail_password.get_secret_value() or None,
         start_tls= settings.mail_use_tls
     )
 
@@ -34,7 +34,7 @@ async def send_email(
 async def send_password_reset_email(to_email:str, username:str, token:str) -> None :
     reset_url = f"{settings.frontend_url}/reset-password?token={token}"
 
-    templates = templates.env.get_template("email/password_reset.html")
+    template = templates.env.get_template("email/password_reset.html")
     html_content = templates.render(reset_url = reset_url, username = username)
 
     plain_text = f"""Hi {username},

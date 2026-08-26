@@ -1,4 +1,3 @@
-# Learning-api
 # FastAPI Blog Application 🚀
 
 > **Project Status:** 🚧 Under Development

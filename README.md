@@ -1,8 +1,4 @@
 # Learning-api
-FASTapi project soon...
-First project using FASTapi
-
-
 # FastAPI Blog Application 🚀
 
 > **Project Status:** 🚧 Under Development
